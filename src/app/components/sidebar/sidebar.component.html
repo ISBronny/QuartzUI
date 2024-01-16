@@ -1,0 +1,13 @@
+<nav class="navbar" [class.open]="isOpen">
+  <button tuiButton class="toggle-button" (click)="toggleSidebar()">
+    T
+  </button>
+  <tui-scrollbar>
+    <a *ngFor="let item of menuItems" tuiLink class="app-navbar-link">
+      <span *ngIf="isOpen">{{item}}</span>
+      <i *ngIf="!isOpen" class="icon"></i>
+    </a>
+  </tui-scrollbar>
+
+
+</nav>

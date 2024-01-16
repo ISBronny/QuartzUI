@@ -1,0 +1,32 @@
+/* sidebar.component.css */
+.navbar {
+  width: 200px;
+  display: flex;
+  max-height: 100%;
+  min-height: 0;
+  flex: 1 1 0;
+  text-align: left;
+
+  flex-direction: column;
+  align-items: flex-start;
+  margin: -1rem 0 -0.5rem;
+}
+
+.open {
+  width: 250px;
+}
+
+
+.toggle-button {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+
+.app-navbar-link {
+  font: var(--tui-font-text-m);
+  margin-left: 0.5rem;
+  padding-top: 1rem;
+  display: flex;
+}

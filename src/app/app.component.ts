@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {SchedulerStore} from "./services/schedulerStore";
+import {TuiActiveZoneModule} from '@taiga-ui/cdk';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'QuartzUI';
+
+
 }
