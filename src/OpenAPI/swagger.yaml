@@ -1,0 +1,2725 @@
+openapi: 3.0.1
+info:
+  title: WebApplication1
+  version: '1.0'
+paths:
+  /schedulers/{schedulerName}/calendars:
+    get:
+      tags:
+        - Calendar
+      operationId: GetCalendarNames
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NamesDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    post:
+      tags:
+        - Calendar
+      operationId: AddCalendar
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCalendarRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/calendars/{calendarName}:
+    get:
+      tags:
+        - Calendar
+      operationId: GetCalendar
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: calendarName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Calendar'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - Calendar
+      operationId: DeleteCalendar
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: calendarName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCalendarResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs:
+    get:
+      tags:
+        - Job
+      operationId: GetJobKeys
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: groupContains
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupEndsWith
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupStartsWith
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupEquals
+          in: query
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KeyDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    post:
+      tags:
+        - Job
+      operationId: AddJob
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddJobRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/{jobGroup}/{jobName}:
+    get:
+      tags:
+        - Job
+      operationId: GetJobDetails
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobDetailDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+        - Job
+      operationId: DeleteJob
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteJobResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/{jobGroup}/{jobName}/exists:
+    get:
+      tags:
+        - Job
+      operationId: CheckJobExists
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExistsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/{jobGroup}/{jobName}/triggers:
+    get:
+      tags:
+        - Job
+      operationId: GetJobTriggers
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trigger'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/currently-executing:
+    get:
+      tags:
+        - Job
+      operationId: CurrentlyExecutingJobs
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CurrentlyExecutingJobDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/{jobGroup}/{jobName}/pause:
+    post:
+      tags:
+        - Job
+      operationId: PauseJob
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/pause:
+    post:
+      tags:
+        - Job
+      operationId: PauseJobs
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: groupContains
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupEndsWith
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupStartsWith
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupEquals
+          in: query
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/{jobGroup}/{jobName}/resume:
+    post:
+      tags:
+        - Job
+      operationId: ResumeJob
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/resume:
+    post:
+      tags:
+        - Job
+      operationId: ResumeJobs
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: groupContains
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupEndsWith
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupStartsWith
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupEquals
+          in: query
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/{jobGroup}/{jobName}/trigger:
+    post:
+      tags:
+        - Job
+      operationId: TriggerJob
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerJobRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/{jobGroup}/{jobName}/interrupt:
+    post:
+      tags:
+        - Job
+      operationId: InterruptJob
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InterruptResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/interrupt/{fireInstanceId}:
+    post:
+      tags:
+        - Job
+      operationId: InterruptJobInstance
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: fireInstanceId
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InterruptResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/delete:
+    post:
+      tags:
+        - Job
+      operationId: DeleteJobs
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteJobsRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteJobsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/groups:
+    get:
+      tags:
+        - Job
+      operationId: GetJobGroupNames
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NamesDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/jobs/groups/{jobGroup}/paused:
+    get:
+      tags:
+        - Job
+      operationId: IsJobGroupPaused
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: jobGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupPausedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers:
+    get:
+      tags:
+        - Scheduler
+      operationId: GetAllSchedulers
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SchedulerHeaderDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}:
+    get:
+      tags:
+        - Scheduler
+      operationId: GetSchedulerDetails
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchedulerDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/context:
+    get:
+      tags:
+        - Scheduler
+      operationId: GetSchedulerContext
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchedulerContextDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/start:
+    post:
+      tags:
+        - Scheduler
+      operationId: Start
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: delayMilliseconds
+          in: query
+          style: form
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/standby:
+    post:
+      tags:
+        - Scheduler
+      operationId: Standby
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/shutdown:
+    post:
+      tags:
+        - Scheduler
+      operationId: Shutdown
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: waitForJobsToComplete
+          in: query
+          style: form
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/clear:
+    post:
+      tags:
+        - Scheduler
+      operationId: Clear
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/pause-all:
+    post:
+      tags:
+        - Scheduler
+      operationId: PauseAll
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/resume-all:
+    post:
+      tags:
+        - Scheduler
+      operationId: ResumeAll
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers:
+    get:
+      tags:
+        - Trigger
+      operationId: GetTriggerKeys
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: groupContains
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupEndsWith
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupStartsWith
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupEquals
+          in: query
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KeyDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/{triggerGroup}/{triggerName}:
+    get:
+      tags:
+        - Trigger
+      operationId: GetTrigger
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trigger'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/{triggerGroup}/{triggerName}/exists:
+    get:
+      tags:
+        - Trigger
+      operationId: CheckTriggerExists
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExistsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/{triggerGroup}/{triggerName}/state:
+    get:
+      tags:
+        - Trigger
+      operationId: GetTriggerState
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TriggerStateDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/{triggerGroup}/{triggerName}/reset-from-error-state:
+    post:
+      tags:
+        - Trigger
+      operationId: ResetTriggerFromErrorState
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/{triggerGroup}/{triggerName}/pause:
+    post:
+      tags:
+        - Trigger
+      operationId: PauseTrigger
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/pause:
+    post:
+      tags:
+        - Trigger
+      operationId: PauseTriggers
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: groupContains
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupEndsWith
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupStartsWith
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupEquals
+          in: query
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/{triggerGroup}/{triggerName}/resume:
+    post:
+      tags:
+        - Trigger
+      operationId: ResumeTrigger
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/resume:
+    post:
+      tags:
+        - Trigger
+      operationId: ResumeTriggers
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: groupContains
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupEndsWith
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupStartsWith
+          in: query
+          style: form
+          schema:
+            type: string
+        - name: groupEquals
+          in: query
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/groups:
+    get:
+      tags:
+        - Trigger
+      operationId: GetTriggerGroupNames
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NamesDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/groups/paused:
+    get:
+      tags:
+        - Trigger
+      operationId: GetPausedTriggerGroups
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NamesDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/groups/{triggerGroup}/paused:
+    get:
+      tags:
+        - Trigger
+      operationId: IsTriggerGroupPaused
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupPausedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/schedule:
+    post:
+      tags:
+        - Trigger
+      operationId: ScheduleJob
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleJobRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleJobResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/schedule-multiple:
+    post:
+      tags:
+        - Trigger
+      operationId: ScheduleJobs
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleJobsRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/{triggerGroup}/{triggerName}/unschedule:
+    post:
+      tags:
+        - Trigger
+      operationId: UnscheduleJob
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnscheduleJobResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/unschedule:
+    post:
+      tags:
+        - Trigger
+      operationId: UnscheduleJobs
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnscheduleJobsRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnscheduleJobsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /schedulers/{schedulerName}/triggers/{triggerGroup}/{triggerName}/reschedule:
+    post:
+      tags:
+        - Trigger
+      operationId: RescheduleJob
+      parameters:
+        - name: schedulerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerGroup
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+        - name: triggerName
+          in: path
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RescheduleJobRequest'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RescheduleJobResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '500':
+          description: Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    AddCalendarRequest:
+      type: object
+      properties:
+        calendarName:
+          type: string
+          nullable: true
+        calendar:
+          $ref: '#/components/schemas/ICalendar'
+        replace:
+          type: boolean
+        updateTriggers:
+          type: boolean
+      additionalProperties: false
+    AddJobRequest:
+      type: object
+      properties:
+        job:
+          $ref: '#/components/schemas/JobDetailDto'
+        replace:
+          type: boolean
+        storeNonDurableWhileAwaitingScheduling:
+          type: boolean
+          nullable: true
+      additionalProperties: false
+    Calendar:
+      type: object
+      properties:
+        calendarType:
+          type: string
+          nullable: true
+          readOnly: true
+        description:
+          type: string
+          nullable: true
+          readOnly: true
+        calendarBase:
+          $ref: '#/components/schemas/Calendar'
+        timeZoneId:
+          type: string
+          nullable: true
+          readOnly: true
+        daysExcluded:
+          type: array
+          items:
+            type: string
+            format: date-time
+          nullable: true
+          readOnly: true
+        cronExpressionString:
+          type: string
+          nullable: true
+          readOnly: true
+        rangeStartingTime:
+          type: string
+          nullable: true
+          readOnly: true
+        rangeEndingTime:
+          type: string
+          nullable: true
+          readOnly: true
+        invertTimeRange:
+          type: boolean
+          nullable: true
+          readOnly: true
+        excludedDates:
+          type: array
+          items:
+            type: string
+            format: date-time
+          nullable: true
+          readOnly: true
+        excludedDays:
+          type: array
+          items:
+            type: boolean
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    CurrentlyExecutingJobDto:
+      type: object
+      properties:
+        jobDetail:
+          $ref: '#/components/schemas/JobDetailDto'
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+        calendar:
+          $ref: '#/components/schemas/Calendar'
+        recovering:
+          type: boolean
+          readOnly: true
+        fireTime:
+          type: string
+          format: date-time
+          readOnly: true
+        scheduledFireTime:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        previousFireTime:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        nextFireTime:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    DayOfWeek:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      type: integer
+      format: int32
+    DeleteCalendarResponse:
+      type: object
+      properties:
+        calendarFound:
+          type: boolean
+      additionalProperties: false
+    DeleteJobResponse:
+      type: object
+      properties:
+        jobFound:
+          type: boolean
+      additionalProperties: false
+    DeleteJobsRequest:
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyDto'
+          nullable: true
+      additionalProperties: false
+    DeleteJobsResponse:
+      type: object
+      properties:
+        allJobsFound:
+          type: boolean
+      additionalProperties: false
+    ExistsResponse:
+      type: object
+      properties:
+        exists:
+          type: boolean
+      additionalProperties: false
+    GroupPausedResponse:
+      type: object
+      properties:
+        paused:
+          type: boolean
+      additionalProperties: false
+    ICalendar:
+      type: object
+      properties:
+        description:
+          type: string
+          nullable: true
+        calendarBase:
+          $ref: '#/components/schemas/ICalendar'
+      additionalProperties: false
+    ITrigger:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/TriggerKey'
+        jobKey:
+          $ref: '#/components/schemas/JobKey'
+        description:
+          type: string
+          nullable: true
+          readOnly: true
+        calendarName:
+          type: string
+          nullable: true
+          readOnly: true
+        jobDataMap:
+          type: object
+          additionalProperties: {}
+          nullable: true
+          readOnly: true
+        finalFireTimeUtc:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        misfireInstruction:
+          type: integer
+          format: int32
+          readOnly: true
+        endTimeUtc:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        startTimeUtc:
+          type: string
+          format: date-time
+          readOnly: true
+        priority:
+          type: integer
+          format: int32
+        hasMillisecondPrecision:
+          type: boolean
+          readOnly: true
+      additionalProperties: false
+    InterruptResponse:
+      type: object
+      properties:
+        interrupted:
+          type: boolean
+      additionalProperties: false
+    IntervalUnit:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+      type: integer
+      format: int32
+    JobDetailDto:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        group:
+          type: string
+          nullable: true
+        jobType:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        durable:
+          type: boolean
+        requestsRecovery:
+          type: boolean
+        concurrentExecutionDisallowed:
+          type: boolean
+        persistJobDataAfterExecution:
+          type: boolean
+        jobDataMap:
+          type: object
+          additionalProperties: {}
+          nullable: true
+      additionalProperties: false
+    JobKey:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        group:
+          type: string
+          nullable: true
+      additionalProperties: false
+    KeyDto:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        group:
+          type: string
+          nullable: true
+      additionalProperties: false
+    NamesDto:
+      type: object
+      properties:
+        names:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: {}
+    RescheduleJobRequest:
+      type: object
+      properties:
+        newTrigger:
+          $ref: '#/components/schemas/ITrigger'
+      additionalProperties: false
+    RescheduleJobResponse:
+      type: object
+      properties:
+        firstFireTimeUtc:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    ScheduleJobRequest:
+      type: object
+      properties:
+        trigger:
+          $ref: '#/components/schemas/ITrigger'
+        job:
+          $ref: '#/components/schemas/JobDetailDto'
+      additionalProperties: false
+    ScheduleJobResponse:
+      type: object
+      properties:
+        firstFireTimeUtc:
+          type: string
+          format: date-time
+      additionalProperties: false
+    ScheduleJobsRequest:
+      type: object
+      properties:
+        jobsAndTriggers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleJobsRequestItem'
+          nullable: true
+        replace:
+          type: boolean
+      additionalProperties: false
+    ScheduleJobsRequestItem:
+      type: object
+      properties:
+        job:
+          $ref: '#/components/schemas/JobDetailDto'
+        triggers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ITrigger'
+          nullable: true
+      additionalProperties: false
+    SchedulerContextDto:
+      type: object
+      properties:
+        context:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+      additionalProperties: false
+    SchedulerDto:
+      type: object
+      properties:
+        schedulerInstanceId:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/SchedulerStatus'
+        threadPool:
+          $ref: '#/components/schemas/SchedulerThreadPoolDto'
+        jobStore:
+          $ref: '#/components/schemas/SchedulerJobStoreDto'
+        statistics:
+          $ref: '#/components/schemas/SchedulerStatisticsDto'
+      additionalProperties: false
+    SchedulerHeaderDto:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        schedulerInstanceId:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/SchedulerStatus'
+      additionalProperties: false
+    SchedulerJobStoreDto:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        clustered:
+          type: boolean
+        persistent:
+          type: boolean
+      additionalProperties: false
+    SchedulerStatisticsDto:
+      type: object
+      properties:
+        version:
+          type: string
+          nullable: true
+        runningSince:
+          type: string
+          format: date-time
+          nullable: true
+        numberOfJobsExecuted:
+          type: integer
+          format: int32
+      additionalProperties: false
+    SchedulerStatus:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    SchedulerThreadPoolDto:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        size:
+          type: integer
+          format: int32
+      additionalProperties: false
+    TimeOfDay:
+      type: object
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+      additionalProperties: false
+    TimeSpan:
+      type: object
+      properties:
+        ticks:
+          type: integer
+          format: int64
+        days:
+          type: integer
+          format: int32
+          readOnly: true
+        hours:
+          type: integer
+          format: int32
+          readOnly: true
+        milliseconds:
+          type: integer
+          format: int32
+          readOnly: true
+        microseconds:
+          type: integer
+          format: int32
+          readOnly: true
+        nanoseconds:
+          type: integer
+          format: int32
+          readOnly: true
+        minutes:
+          type: integer
+          format: int32
+          readOnly: true
+        seconds:
+          type: integer
+          format: int32
+          readOnly: true
+        totalDays:
+          type: number
+          format: double
+          readOnly: true
+        totalHours:
+          type: number
+          format: double
+          readOnly: true
+        totalMilliseconds:
+          type: number
+          format: double
+          readOnly: true
+        totalMicroseconds:
+          type: number
+          format: double
+          readOnly: true
+        totalNanoseconds:
+          type: number
+          format: double
+          readOnly: true
+        totalMinutes:
+          type: number
+          format: double
+          readOnly: true
+        totalSeconds:
+          type: number
+          format: double
+          readOnly: true
+      additionalProperties: false
+    Trigger:
+      type: object
+      properties:
+        triggerType:
+          type: string
+          nullable: true
+          readOnly: true
+        key:
+          $ref: '#/components/schemas/KeyDto'
+        jobKey:
+          $ref: '#/components/schemas/KeyDto'
+        description:
+          type: string
+          nullable: true
+          readOnly: true
+        calendarName:
+          type: string
+          nullable: true
+          readOnly: true
+        jobDataMap:
+          type: object
+          additionalProperties: {}
+          nullable: true
+          readOnly: true
+        misfireInstruction:
+          type: integer
+          format: int32
+          readOnly: true
+        startTimeUtc:
+          type: string
+          format: date-time
+          readOnly: true
+        endTimeUtc:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        priority:
+          type: integer
+          format: int32
+          readOnly: true
+        timeZone:
+          type: string
+          nullable: true
+          readOnly: true
+        repeatInterval:
+          type: integer
+          format: int32
+          nullable: true
+          readOnly: true
+        repeatIntervalUnit:
+          $ref: '#/components/schemas/IntervalUnit'
+        preserveHourOfDayAcrossDaylightSavings:
+          type: boolean
+          nullable: true
+          readOnly: true
+        skipDayIfHourDoesNotExist:
+          type: boolean
+          nullable: true
+          readOnly: true
+        cronExpressionString:
+          type: string
+          nullable: true
+          readOnly: true
+        repeatCount:
+          type: integer
+          format: int32
+          nullable: true
+          readOnly: true
+        startTimeOfDay:
+          $ref: '#/components/schemas/TimeOfDay'
+        endTimeOfDay:
+          $ref: '#/components/schemas/TimeOfDay'
+        daysOfWeek:
+          type: array
+          items:
+            $ref: '#/components/schemas/DayOfWeek'
+          nullable: true
+          readOnly: true
+        repeatIntervalTimeSpan:
+          $ref: '#/components/schemas/TimeSpan'
+      additionalProperties: false
+    TriggerJobRequest:
+      type: object
+      properties:
+        jobData:
+          type: object
+          additionalProperties: {}
+          nullable: true
+      additionalProperties: false
+    TriggerKey:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        group:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TriggerState:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+      type: integer
+      format: int32
+    TriggerStateDto:
+      type: object
+      properties:
+        state:
+          $ref: '#/components/schemas/TriggerState'
+      additionalProperties: false
+    UnscheduleJobResponse:
+      type: object
+      properties:
+        triggerFound:
+          type: boolean
+      additionalProperties: false
+    UnscheduleJobsRequest:
+      type: object
+      properties:
+        triggers:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyDto'
+          nullable: true
+      additionalProperties: false
+    UnscheduleJobsResponse:
+      type: object
+      properties:
+        allTriggersFound:
+          type: boolean
+      additionalProperties: false

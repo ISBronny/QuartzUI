@@ -1,8 +1,23 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {provideAnimations} from "@angular/platform-browser/animations";
+import {TuiRootModule} from "@taiga-ui/core";
+import {ApplicationConfig, importProvidersFrom} from '@angular/core';
+import {provideRouter, Routes} from '@angular/router';
 
-import { routes } from './app.routes';
+import {routes} from './app.routes';
+import {environment} from "../environments/environment";
+import {BASE_PATH, SchedulerService} from "../dotnet-client";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {SchedulersStoreService} from "./stores/schedulers-store.service";
+import {SchedulerSelectorComponent} from "./components/scheduler-selector/scheduler-selector.component";
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes)]
+  providers: [
+    provideAnimations(),
+    provideRouter(routes),
+    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(TuiRootModule),
+    {provide: BASE_PATH, useValue: environment.quartzApiUrl},
+    SchedulersStoreService,
+    SchedulerService,
+    HttpClientModule]
 };
