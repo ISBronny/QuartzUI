@@ -9,9 +9,11 @@ import {BASE_PATH, SchedulerService} from "../dotnet-client";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {SchedulersStoreService} from "./stores/schedulers-store.service";
 import {SchedulerSelectorComponent} from "./components/scheduler-selector/scheduler-selector.component";
+import {AppJobsPageComponent} from "./components/jobs/app-jobs-page.component";
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    AppJobsPageComponent,
     provideAnimations(),
     provideRouter(routes),
     importProvidersFrom(HttpClientModule),
